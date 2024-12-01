@@ -18,6 +18,9 @@
 
 */
 
+// Libraries that already been loaded
+$_LOADED_LIBS = [];
+
 // Iterates through all subfolders
 /** (Dont use this function, this is for the library function) */
 function _main_search_and_import($directory, &$ignore): void {
@@ -65,6 +68,7 @@ function _main_discard_comments(string &$content): void {
             $to = strlen($content);
         }
 
+        // 2 is the length of \r\n (two chars)
         $delete = substr($content, $from, ($to + 2) - $from);
         $content = trim(str_replace($delete, "\r\n", $content));
     }
@@ -103,10 +107,14 @@ function _main_is_valid_path(bool|string $path): bool {
 }
 
 /** 
- * Imports an individual file or all the descendant files in the 'libraries' folder
+ * Imports an individual file or all the descendant files in the 'libraries' folder.
+ * If a folder and a file shares the same name, you can separe it either with the .php
+ * extension or adding a slash in the end of the string.
  * @param string $uri Folder or file to be imported in the 'libraries' folder
  */
 function import(string $uri): void {
+    global $_LOADED_LIBS;
+
     // This if someone for a particular reason and i don't know why, sends
     // an empty string.
     if (trim($uri) === "") {
@@ -131,8 +139,16 @@ function import(string $uri): void {
       (If both of these fails, the function throws an error.)
     */
     if (_main_is_valid_path($real_resource) === true) {
+        if (in_array($real_resource, $_LOADED_LIBS) === true) {
+            return;
+        }
+        array_push($_LOADED_LIBS, $real_resource);
         require_once($real_resource);
     } else if (_main_is_valid_path($directory_dir) === true) {
+        if (in_array($directory_dir, $_LOADED_LIBS) === true) {
+            return;
+        }
+
         $ignore = _main_files_to_ignore();
         
         // This is if the same folder we're going to iterate is in the ignore list
@@ -143,6 +159,7 @@ function import(string $uri): void {
                 throw new Exception("this folder is forbidden to be iterated");
         }
 
+        array_push($_LOADED_LIBS, $directory_dir);
         _main_search_and_import($directory_dir, $ignore);
     } else {
         throw new Exception("resource given ($uri) is neither a valid library directory nor valid file!");
