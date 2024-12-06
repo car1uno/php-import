@@ -6,7 +6,7 @@
 ## How the library works?:
 
 The library consists in making including php files more easy, instead
-of doing like **include(getcwd() . "/folder/to/file.php")**, with this
+of doing like **include(__DIR__ . "/folder/to/file.php")**, with this
 framework you can use **import("folder/to/file")**. Also you can import
 the whole folder just sending the directory as the parameter. This is
 useful if some web servers _(rarely)_ don't support **/** as the root directory
