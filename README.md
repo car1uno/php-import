@@ -1,5 +1,8 @@
 # PHP import() Library
 
+> [!WARNING]
+> This library is pending of being evaluated for security and performance issues. You can use this library by your own risk.
+
 ## How the library works?:
 
 The library consists in making including php files more easy, instead
