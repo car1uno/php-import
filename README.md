@@ -48,4 +48,3 @@ can add install the composer extension, create 'composer.json' and add this:
 ```
 Although this is not the best implementation, it should add intellisense to all the files
 added into the library folder.
-```
