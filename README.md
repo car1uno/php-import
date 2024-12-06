@@ -1,7 +1,7 @@
 # PHP import() Library
 
 > [!WARNING]
-> This library is pending of being evaluated for security and performance issues. You can use this library by your own risk.
+> This library is pending of being evaluated for security, utility and performance issues. You can use this library by your own risk.
 
 ## How the library works?:
 
