@@ -37,14 +37,4 @@ For example, using __.htaccess__ you can add:
 php_value include_path "/path/to/docs/"
 php_value auto_prepend_file "libraries/main.php"
 ```
-and, thats all! You can use the __import()__ function now! For intellisense you
-can add install the composer extension, create 'composer.json' and add this:
-```json
-{
-    "autoload": {
-        "classmap": ["libraries/"]
-    }
-}
-```
-Although this is not the best implementation, it should add intellisense to all the files
-added into the library folder.
+and, thats all! You can use the __import()__ function now!
